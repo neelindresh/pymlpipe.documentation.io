@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>API - PyMLPipe Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "API";
+        var mkdocs_page_input_path = "code.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> PyMLPipe Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../package-index/">Usage</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">API</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipetabular">pymlpipe/tabular</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeinit">pymlpipe/init</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipepymlpipeui">pymlpipe/pymlpipeUI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsyamlio">pymlpipe/utils/yamlio</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsdatabase">pymlpipe/utils/database</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsinit">pymlpipe/utils/init</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsgetschema">pymlpipe/utils/getschema</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutils_sklearn_prediction">pymlpipe/utils/_sklearn_prediction</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../featurelist/">Feature</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PyMLPipe Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>API</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="source-code-index">Source Code Index</h1>
+<h3 id="pymlpipetabular">pymlpipe/tabular</h3>
+<pre><code class="language-python">import os
+from pymlpipe.utils.database import create_folder
+from pymlpipe.utils.getschema import schema_
+import uuid
+import yaml
+from contextlib import contextmanager
+import pandas as pd
+import shutil
+import pickle
+import sklearn
+import datetime
+
+class Context_Manager:
+    &quot;&quot;&quot;_summary_: Context Manager for with statement
+        1. creates folders and subfolders
+        2. creates runid for a run instance
+        &quot;&quot;&quot;
+
+    def __init__(self, name, feature_store, run_id=None):
+        super(PyMLPipe)
+        if run_id == None:
+            self.runid = str(uuid.uuid4())
+        else:
+            self.runid = run_id
+        self.name = name
+        self.feature_store = feature_store
+        self.exp_path = os.path.join(self.feature_store, self.name, self.runid)
+        self.folders = {'artifacts': os.path.join(self.exp_path, 'artifacts'), 'metrics': os.path.join(self.exp_path, 'metrics'), 'models': os.path.join(self.exp_path, 'models'), 'params': os.path.join(self.exp_path, 'params')}
+        self.info_dict = []
+
+    def get_path(self):
+        &quot;&quot;&quot;_summary_
+
+            Returns:
+                _type_: _description_
+            &quot;&quot;&quot;
+        return self.exp_path
+
+    def structure(self):
+        &quot;&quot;&quot;_summary_
+
+            Returns:
+                _type_: _description_
+            &quot;&quot;&quot;
+        self.exp_path = create_folder(self.feature_store, self.name)
+        self.exp_path = create_folder(self.exp_path, self.runid)
+        self._create_all_folders(self.exp_path)
+        return self.exp_path
+
+    def _create_all_folders(self, exp_path):
+        &quot;&quot;&quot;_summary_
+
+            Args:
+                exp_path (_type_): _description_
+            &quot;&quot;&quot;
+        for i in self.folders:
+            create_folder(exp_path, i)
+
+    def write_to_yaml(self, info):
+        with open(os.path.join(self.exp_path, 'info.yaml'), 'w') as file:
+            documents = yaml.dump(info, file)
+
+class PyMLPipe:
+
+    def __init__(self):
+        self.feature_store = create_folder(os.getcwd())
+        self.experiment_name = '0'
+        self.folders = None
+        self.experiment_path = None
+        self.info = {}
+        self.info['tags'] = []
+        self.info['metrics'] = {}
+        self.info['params'] = {}
+        self.info['artifact'] = []
+        self.info['model'] = {}
+        self.info['artifact_schema'] = []
+
+    def __reset__(self):
+        self.feature_store = create_folder(os.getcwd())
+        self.folders = None
+        self.experiment_path = None
+        self.info['tags'] = []
+        self.info['metrics'] = {}
+        self.info['params'] = {}
+        self.info['artifact'] = []
+        self.info['model'] = {}
+        self.info['artifact_schema'] = []
+
+    @contextmanager
+    def run(self, experiment_name=None, runid=None):
+        &quot;&quot;&quot;_summary_: start a context manager for with statement
+        1. When run is started it will create
+            a. RUN ID
+            b. EXPERIMENT ID
+            c. FOLDERS for storing the details
+
+        Args:
+            experiment_name (str, optional): gives a experiment name. Defaults to None.
+            runid (str, optional): gives a runid. Defaults to None.
+
+        Returns:
+            class context_run(object): object for the context manager
+        &quot;&quot;&quot;
+        if experiment_name != None:
+            self.experiment_name = experiment_name
+        r = Context_Manager(self.experiment_name, self.feature_store, runid)
+        self._write_info_run(self.experiment_name, r.runid)
+        r.structure()
+        self.context_manager = r
+        self.scikit_learn = ScikitLearn(self.context_manager.folders)
+        yield r
+        self.info['execution_time'] = str(datetime.datetime.now()).split('.')[0]
+        if self.scikit_learn.registered:
+            self.info['model'] = {'model_name': self.scikit_learn.model_name, 'model_path': self.scikit_learn.model_path, 'model_params': self.scikit_learn.model_params, 'model_class': self.scikit_learn.model_class, 'model_type': self.scikit_learn.model_type, 'model_tags': self.scikit_learn.model_tags, 'registered': self.scikit_learn.registered}
+        self.context_manager.write_to_yaml(self.info)
+        self.__reset__()
+
+    def set_experiment(self, name):
+        &quot;&quot;&quot;_summary_: sets the experiment name
+
+        Args:
+            name (str): name of the experiment
+        &quot;&quot;&quot;
+        self.experiment_name = name
+        exp_path = create_folder(self.feature_store, self.experiment_name)
+        self._write_info_experiment(name, exp_path)
+
+    def set_tag(self, tag_value):
+        &quot;&quot;&quot;_summary_: sets a tag for a perticular run
+        Args:
+            name (str or int or float): tag name 
+        Raises:
+            TypeError: Supported type 'str','int','float'
+        &quot;&quot;&quot;
+        if isinstance(tag_dtag_valueict, dict) or isinstance(tag_dtag_valueict, list) or isinstance(tag_dtag_valueict, set):
+            raise TypeError(&quot;unsupported type, Expected 'str','int','float' got &quot; + str(type(tag_dict)))
+        self.info['tags'].append(tag_value)
+
+    def set_tags(self, tag_dict: list):
+        &quot;&quot;&quot;_summary_:sets N no of tags for a perticular run
+
+        Args:
+            tag_dict (list): tag names in list format
+
+        Raises:
+            TypeError: Expected 'list'
+        &quot;&quot;&quot;
+        if isinstance(tag_dict, list):
+            self.info['tags'].extend(tag_dict)
+        else:
+            raise TypeError(&quot;unsupported type, Expected 'list' got &quot; + str(type(tag_dict)))
+
+    def get_tags(self):
+        &quot;&quot;&quot;_summary_: get all the tags that are associated with the run
+
+        Returns:
+            list: tags that are associated with the run
+        &quot;&quot;&quot;
+        return self.info['tags']
+
+    def set_version(self, version):
+        &quot;&quot;&quot;_summary_:sets version number for the perticular run
+
+        Args:
+            version (str or int or float): version number
+
+        Raises:
+            TypeError: Expected 'str','int','float'
+        &quot;&quot;&quot;
+        if isinstance(version, dict) or isinstance(version, list) or isinstance(version, set):
+            raise TypeError(&quot;unsupported type, Expected 'str','int','float' got &quot; + str(type(tag_dict)))
+        self.info['version'] = version
+
+    def get_version(self):
+        &quot;&quot;&quot;_summary_:get the version number associated with the run
+
+
+        Returns:
+            _type_: version number
+        &quot;&quot;&quot;
+        return self.info['version']
+
+    def log_metrics(self, metric_dict: dict):
+        &quot;&quot;&quot;_summary_: log metrics for the model run
+
+        Args:
+            metric_dict (dict): key value pair with metric name and metric value
+
+        Raises:
+            TypeError: Expected 'dict'
+        &quot;&quot;&quot;
+        if isinstance(metric_dict, dict):
+            self.info['metrics'].update({i: float('{0:.2f}'.format(j)) for (i, j) in metric_dict.item()})
+        else:
+            raise TypeError(&quot;unsupported type, Expected 'dict' got &quot; + str(type(metric_dict)))
+
+    def log_matric(self, metric_name, metric_value):
+        &quot;&quot;&quot;_summary_: log single metric for the model run
+
+        Args:
+            metric_name (str): name of the metric
+            metric_value (int or float): value of the metric
+
+        Raises:
+            TypeError: metric_name expected to be str
+            TypeError: metric_value expected to be int or float
+        &quot;&quot;&quot;
+        mv = None
+        if not isinstance(metric_value, int) and (not isinstance(metric_value, float)):
+            raise TypeError(&quot;unsupported type, 'metric_value' Expected 'int','float' got &quot; + str(type(metric_value)))
+        if not isinstance(metric_name, str):
+            raise TypeError(&quot;unsupported type, 'metric_value' Expected 'str' got &quot; + str(type(metric_name)))
+        self.info['metrics'][metric_name] = float('{0:.2f}'.format(metric_value))
+
+    def log_params(self, param_dict: dict):
+        &quot;&quot;&quot;_summary_: log parameters for the model run
+
+        Args:
+            param_dict (dict): key value pair with parameter name and parameter value
+
+        Raises:
+            TypeError: Expected 'dict'
+        &quot;&quot;&quot;
+        if isinstance(param_dict, dict):
+            self.info['params'].update(param_dict)
+        else:
+            raise TypeError(&quot;unsupported type, Expected 'dict' got &quot; + str(type(metric_dict)))
+
+    def log_param(self, param_name, param_value):
+        &quot;&quot;&quot;_summary_:log single parameter for the model run
+
+        Args:
+            param_name (str): _description_
+            param_value (int or float or str): _description_
+
+        Raises:
+            TypeError: param_name Expected 'str' 
+            TypeError: param_value Expected 'int','float','str' 
+        &quot;&quot;&quot;
+        mv = None
+        if not isinstance(param_value, int) and (not isinstance(param_value, float)) and (not isinstance(param_value, str)):
+            raise TypeError(&quot;unsupported type, 'param_value' Expected 'int','float','str' got &quot; + str(type(metric_value)))
+        if not isinstance(param_name, str):
+            raise TypeError(&quot;unsupported type, 'param_name' Expected 'str' got &quot; + str(type(metric_name)))
+        self.info['params'][param_name] = param_value
+
+    def register_artifact(self, artifact_name, artifact, artifact_type='training'):
+        &quot;&quot;&quot;_summary_: Save Artifact as part of data verion control
+
+        Args:
+            artifact_name (str): name of the artifact
+            artifact (pandas DataFrame): pandas DataFrame object with the data
+            artifact_type (str, optional): Defaults to &quot;training&quot;. artifact_type can be [training,testing,validation,dev,prod]
+
+        Raises:
+            TypeError: Expected DataFrame object
+            ValueError: artifact_name should have a string value
+        &quot;&quot;&quot;
+        if not isinstance(artifact, pd.DataFrame):
+            raise TypeError(&quot;Please provide DataFrame in 'artifact'&quot;)
+        if artifact_name == '' or artifact_name == None:
+            raise ValueError(&quot;Please provide a name in 'artifact_name' which is not '' or None&quot;)
+        path = os.path.join(self.context_manager.folders['artifacts'], artifact_name)
+        dataschema = artifact.describe(include='all')
+        artifact.to_csv(path, index=False)
+        self.info['artifact'].append({'name': artifact_name, 'path': path, 'tag': artifact_type})
+        (schema_data, schema_details) = schema_(artifact)
+        self.info['artifact_schema'].append({'name': artifact_name, 'schema': schema_data, 'details': schema_details})
+
+    def register_artifact_with_path(self, artifact, artifact_type='training'):
+        &quot;&quot;&quot;_summary_
+
+        Args:
+            artifact (str): path of the artifact
+            artifact_type (str, optional): _description_. Defaults to &quot;training&quot;.artifact_type can be [training,testing,validation,dev,prod]
+
+        Raises:
+            TypeError: artifact path should be str
+            ValueError: artifact path should be correct
+        &quot;&quot;&quot;
+        if not isinstance(artifact, str):
+            raise TypeError('Please provide full path of artifact')
+        if not os.path.exists(artifact):
+            raise ValueError('Please provide correct path of artifact')
+        shutil.copy(artifact, self.context_manager.folders['artifacts'])
+        path = os.path.join(self.context_manager.folders['artifacts'], os.path.basename(artifact))
+        self.info['artifact'].append({'name': os.path.basename(path), 'path': path, 'tag': artifact_type})
+        filename = os.path.basename(artifact)
+        if filename.endswith('.csv'):
+            artifact = pd.read_csv(path)
+        elif filename.endswith('.xlxs'):
+            artifact = pd.read_excel(path)
+        elif filename.endswith('.parquet'):
+            artifact = pd.read_parquet(path)
+        else:
+            print('Error: Unknown file type cannot generate Schema!!!!')
+            return
+        (schema_data, schema_details) = schema_(artifact)
+        self.info['artifact_schema'].append({'name': filename, 'schema': schema_data, 'details': schema_details})
+
+    def get_info(self):
+        &quot;&quot;&quot;_summary_: get the whole run details
+
+        Returns:
+            dict: information about the whole run
+        &quot;&quot;&quot;
+        return self.info
+
+    def get_artifact(self):
+        &quot;&quot;&quot;_summary_: get the artifact details
+
+        Returns:
+            dict: returns the artifact detail
+        &quot;&quot;&quot;
+        return self.info['artifact']
+
+    def _write_info_experiment(self, experiment_name, path):
+        &quot;&quot;&quot;_summary_: writes to the experiment schema
+
+        Args:
+            experiment_name (str): name of the experiment
+            path (str): path to save the run details
+        &quot;&quot;&quot;
+        fulllist = {}
+        if os.path.exists(os.path.join(self.feature_store, 'experiment.yaml')):
+            with open(os.path.join(self.feature_store, 'experiment.yaml')) as file:
+                fulllist = yaml.load(file, Loader=yaml.FullLoader)
+            if experiment_name not in fulllist:
+                fulllist[experiment_name] = {'experiment_path': path, 'runs': [], 'execution_time': str(datetime.datetime.now()).split('.')[0]}
+            else:
+                fulllist[experiment_name]['execution_time'] = str(datetime.datetime.now()).split('.')[0]
+        else:
+            fulllist[experiment_name] = {'experiment_path': path, 'runs': [], 'execution_time': str(datetime.datetime.now()).split('.')[0]}
+        with open(os.path.join(self.feature_store, 'experiment.yaml'), 'w') as file:
+            documents = yaml.dump(fulllist, file)
+
+    def _write_info_run(self, experiment_name, run_id):
+        &quot;&quot;&quot;_summary_:writes to the run schema
+
+        Args:
+            experiment_name (str): name of the experiment
+            run_id (str): ID for the running instance
+        &quot;&quot;&quot;
+        fulllist = {}
+        with open(os.path.join(self.feature_store, 'experiment.yaml')) as file:
+            fulllist = yaml.load(file, Loader=yaml.FullLoader)
+        fulllist[experiment_name]['runs'].append(run_id)
+        with open(os.path.join(self.feature_store, 'experiment.yaml'), 'w') as file:
+            documents = yaml.dump(fulllist, file)
+
+    def set_uri(self):
+        pass
+
+class ScikitLearn:
+
+    def __init__(self, folders):
+        self.folders = folders
+        self.model_name = ''
+        self.model_path = ''
+        self.model_class = ''
+        self.model_type = ''
+        self.model_params = {}
+        self.model_tags = {}
+        self.registered = False
+
+    def register_model(self, model_name, model):
+        if 'sklearn' in str(type(model)):
+            pickle.dump(model, open(os.path.join(self.folders['models'], model_name + '.pkl'), 'wb'))
+        else:
+            raise TypeError('Error:Expected ScikitLearn Module!!!!')
+        self.model_name = model_name
+        self.model_path = os.path.join(self.folders['models'], model_name + '.pkl')
+        self.model_class = type(model).__name__
+        self.model_params = model.get_params()
+        self.model_tags = {tag: str(value) for (tag, value) in model._get_tags().items()}
+        self.model_type = 'scikit-learn'
+        self.registered = True 
+</code></pre>
+<h3 id="pymlpipeinit">pymlpipe/<strong>init</strong></h3>
+<pre><code class="language-python">
+</code></pre>
+<h3 id="pymlpipepymlpipeui">pymlpipe/pymlpipeUI</h3>
+<pre><code class="language-python">import flask
+import os
+from pymlpipe.utils import yamlio
+from pymlpipe.utils import _sklearn_prediction
+from flask_api import FlaskAPI
+import numpy as np
+import json
+app = FlaskAPI(__name__)
+BASE_DIR = os.getcwd()
+MODEL_FOLDER_NAME = 'modelrun'
+MODEL_DIR = os.path.join(BASE_DIR, MODEL_FOLDER_NAME)
+EXPERIMENT_FILE = 'experiment.yaml'
+DEPLOYMENT_FILE = 'deployment.yaml'
+PREDICTORS = {}
+
+@app.route('/')
+def index():
+    experiment_lists = yamlio.read_yaml(os.path.join(MODEL_DIR, EXPERIMENT_FILE))
+    info = {}
+    metrics = []
+    for (experiment, run_data) in experiment_lists.items():
+        for run_id in run_data['runs']:
+            print(run_data['experiment_path'], run_id, 'info.yaml')
+            run_folder = os.path.join(run_data['experiment_path'], run_id, 'info.yaml')
+            run_details = yamlio.read_yaml(run_folder)
+            info[run_id] = run_details
+            if 'metrics' in run_details:
+                metrics.extend(list(run_details['metrics'].keys()))
+    exp_names = list(experiment_lists.keys())
+    return flask.render_template('index.html', runs=experiment_lists, run_details=info, metrics=list(set(metrics)), current_experiment=exp_names)
+
+@app.route('/run/&lt;run_id&gt;/')
+def runpage(run_id):
+    (experiments, run_id) = run_id.split('@')
+    experiment_lists = yamlio.read_yaml(os.path.join(MODEL_DIR, EXPERIMENT_FILE))
+    run_details = yamlio.read_yaml(os.path.join(MODEL_DIR, experiments, run_id, 'info.yaml'))
+    expertiment_details = {'RUN_ID': run_id, 'EXPERIMENT NAME': experiments, 'EXECUTION DATE TIME': run_details['execution_time']}
+    if 'tags' in run_details:
+        expertiment_details['TAGS'] = run_details['tags']
+    else:
+        expertiment_details['TAGS'] = '-'
+    if 'version' in run_details:
+        expertiment_details['VERSION'] = run_details['version']
+    else:
+        expertiment_details['VERSION'] = '-'
+    return flask.render_template('run.html', run_id=run_id, experiments=experiments, expertiment_details=expertiment_details, artifact_details=run_details['artifact'], metrics_details=run_details['metrics'], model_details=run_details['model'], param_details=run_details['params'], schema_details=run_details['artifact_schema'])
+
+@app.route('/download_artifact/&lt;uid&gt;')
+def download_artifact(uid):
+    (experiments, run_id, filename) = uid.split('@')
+    return flask.send_from_directory(os.path.join(MODEL_DIR, experiments, run_id, 'artifacts'), filename, as_attachment=True)
+
+@app.route('/download_model/&lt;uid&gt;')
+def download_model(uid):
+    (experiments, run_id, filename, model_type) = uid.split('@')
+    if model_type == 'scikit-learn':
+        filename = filename + '.pkl'
+    return flask.send_from_directory(os.path.join(MODEL_DIR, experiments, run_id, 'models'), filename, as_attachment=True)
+
+@app.route('/deployments/&lt;run_id&gt;/')
+def deployments(run_id):
+    (experiments, runid) = run_id.split('@')
+    run_details = yamlio.read_yaml(os.path.join(MODEL_DIR, experiments, runid, 'info.yaml'))
+    deployed = _sklearn_prediction.Deployment(run_details['model']['model_path'])
+    run_hash = str(abs(hash(run_id)))
+    PREDICTORS[run_hash] = deployed
+    ALL_DEPLOYED_MODELS = yamlio.read_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE))
+    ALL_DEPLOYED_MODELS.append({'run_id': runid, 'experiment_id': experiments, 'model_path': run_details['model']['model_path'], 'model_deployment_number': run_hash, 'model_url': '/predict/' + run_hash, 'status': 'running'})
+    yamlio.write_to_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE), ALL_DEPLOYED_MODELS)
+    return flask.redirect(flask.url_for('show_deployments'))
+
+@app.route('/show_deployments/')
+def show_deployments():
+    ALL_DEPLOYED_MODELS = yamlio.read_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE))
+    return flask.render_template('deployments.html', ALL_DEPLOYED_MODELS=ALL_DEPLOYED_MODELS)
+
+@app.route('/predict/&lt;hashno&gt;', methods=['GET', 'POST'])
+def predict(hashno):
+    print(PREDICTORS)
+    if flask.request.method == 'POST':
+        data = flask.request.data
+        predictions = PREDICTORS[hashno].predict(np.array(data['data']))
+        return {'deployment no': hashno, 'predictions': [int(p) for p in predictions]}
+    return {'data': [[5.6, 3.0, 4.5, 1.5], [5.6, 3.0, 4.5, 1.5]]}
+
+@app.route('/deployment/stop/&lt;deployment_no&gt;', methods=['GET'])
+def stop_deployment(deployment_no):
+    global PREDICTORS
+    ALL_DEPLOYED_MODELS = yamlio.read_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE))
+    for (idx, d) in enumerate(ALL_DEPLOYED_MODELS):
+        if d['model_deployment_number'] == deployment_no:
+            print('here here')
+            ALL_DEPLOYED_MODELS[idx]['status'] = 'stopped'
+    print(ALL_DEPLOYED_MODELS)
+    yamlio.write_to_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE), ALL_DEPLOYED_MODELS)
+    PREDICTORS = {i: j for (i, j) in PREDICTORS.items() if i != deployment_no}
+    return {'status': 200}
+
+@app.route('/deployment/start/&lt;deployment_no&gt;', methods=['GET'])
+def start_deployment(deployment_no):
+    global PREDICTORS
+    ALL_DEPLOYED_MODELS = yamlio.read_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE))
+    for (idx, d) in enumerate(ALL_DEPLOYED_MODELS):
+        if d['model_deployment_number'] == deployment_no:
+            ALL_DEPLOYED_MODELS[idx]['status'] = 'running'
+            PREDICTORS[deployment_no] = _sklearn_prediction.Deployment(d['model_path'])
+    yamlio.write_to_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE), ALL_DEPLOYED_MODELS)
+    return {'status': 200}
+
+def start_ui(host=None, port=None, debug=False):
+    &quot;&quot;&quot;Implemet logic for try catch&quot;&quot;&quot;
+    ALL_DEPLOYED_MODELS = yamlio.read_yaml(os.path.join(MODEL_DIR, DEPLOYMENT_FILE))
+    for i in ALL_DEPLOYED_MODELS:
+        deployed = _sklearn_prediction.Deployment(i['model_path'])
+        PREDICTORS[i['model_deployment_number']] = deployed
+    if host == None and port == None:
+        app.run(debug=debug)
+    elif host == None:
+        app.run(port=port, debug=debug)
+    elif port == None:
+        app.run(host=host, debug=debug)
+    else:
+        app.run(host=host, port=port, debug=debug)
+if __name__ == '__main__':
+    app.run() 
+</code></pre>
+<h3 id="pymlpipeutilsyamlio">pymlpipe/utils/yamlio</h3>
+<pre><code class="language-python">import yaml
+import os
+
+def read_yaml(path):
+    if not os.path.exists(path):
+        return []
+    with open(path) as file:
+        fulllist = yaml.load(file, Loader=yaml.FullLoader)
+    return fulllist
+
+def write_to_yaml(path, info):
+    with open(os.path.join(path), 'w') as file:
+        documents = yaml.dump(info, file) 
+</code></pre>
+<h3 id="pymlpipeutilsdatabase">pymlpipe/utils/database</h3>
+<pre><code class="language-python">import os
+MODEL_FOLDER_NAME = 'modelrun'
+
+def create_folder(folder_path, name=None):
+    &quot;&quot;&quot;_summary_:create a folder for storing model information
+
+    Returns:
+        str: path for storing model details
+    &quot;&quot;&quot;
+    folder = MODEL_FOLDER_NAME
+    if name != None:
+        folder = name
+    path = os.path.join(folder_path, folder)
+    if not os.path.exists(path):
+        os.mkdir(path)
+    return path 
+</code></pre>
+<h3 id="pymlpipeutilsinit">pymlpipe/utils/<strong>init</strong></h3>
+<pre><code class="language-python">__version__ = '0.1.0'
+__author__ = 'indresh bhattacharya' 
+</code></pre>
+<h3 id="pymlpipeutilsgetschema">pymlpipe/utils/getschema</h3>
+<pre><code class="language-python">import pandas as pd
+
+def schema_(data):
+    &quot;&quot;&quot;_summary_: Generate schema object for a dataframe
+
+    Args:
+        data (Pandas DataFrame): Pandas Artifact
+
+    Returns:
+        dict: with column schema
+    &quot;&quot;&quot;
+    schema = {}
+    details = []
+    for col in data:
+        schema[col] = {'min': float(round(data[col].min(), 2)), 'max': float(round(data[col].max(), 2)), 'std': float(round(data[col].std(), 2)), 'variance': float(round(data[col].var(), 2)), 'mean': float(round(data[col].mean(), 2)), 'median': float(round(data[col].median(), 2)), 'data type': str(data[col].dtype), 'unique_values': int(len(data[col].unique())), '25th percentile': str(round(data[col].quantile(0.25), 2)), '50% percentile': str(round(data[col].quantile(0.5), 2)), '75% percentile': str(round(data[col].quantile(0.75), 2))}
+        if len(details) == 0:
+            details = list(schema[col].keys())
+    return (schema, details) 
+</code></pre>
+<h3 id="pymlpipeutils_sklearn_prediction">pymlpipe/utils/_sklearn_prediction</h3>
+<pre><code class="language-python">import pickle
+
+class Deployment:
+
+    def __init__(self, model_path):
+        self.model_path = model_path
+        self.model = pickle.load(open(self.model_path, 'rb'))
+
+    def predict(self, data):
+        return self.model.predict(data) 
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../package-index/" class="btn btn-neutral float-left" title="Usage"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../featurelist/" class="btn btn-neutral float-right" title="Feature">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../package-index/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../featurelist/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

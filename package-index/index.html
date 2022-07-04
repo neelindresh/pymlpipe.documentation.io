@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Usage - PyMLPipe Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Usage";
+        var mkdocs_page_input_path = "package-index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> PyMLPipe Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Usage</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipetabular">pymlpipe/tabular</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#class-context_manager">Class-&gt; Context_Manager:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#class-pymlpipe">Class-&gt; PyMLPipe:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#class-scikitlearn">Class-&gt; ScikitLearn:</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../code/">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../featurelist/">Feature</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PyMLPipe Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Usage</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="index">Index</h1>
+<h3 id="pymlpipetabular">pymlpipe/tabular</h3>
+<h4 id="class-context_manager">Class-&gt; Context_Manager:</h4>
+<p><strong><em> Module-&gt; <strong>init</strong>(self,name,feature_store,run_id):</em></strong></p>
+<p><strong><em> Module-&gt; get_path(self):</em></strong></p>
+<pre><code class="language-python"> _summary_
+
+Returns:
+    _type_: _description_ 
+</code></pre>
+<p><strong><em> Module-&gt; structure(self):</em></strong></p>
+<pre><code class="language-python"> _summary_
+
+Returns:
+    _type_: _description_ 
+</code></pre>
+<p><strong><em> Module-&gt; _create_all_folders(self,exp_path):</em></strong></p>
+<pre><code class="language-python"> _summary_
+
+Args:
+    exp_path (_type_): _description_ 
+</code></pre>
+<p><strong><em> Module-&gt; write_to_yaml(self,info):</em></strong></p>
+<h4 id="class-pymlpipe">Class-&gt; PyMLPipe:</h4>
+<p><strong><em> Module-&gt; <strong>init</strong>(self):</em></strong></p>
+<p><strong><em> Module-&gt; <strong>reset</strong>(self):</em></strong></p>
+<p><strong><em> Module-&gt; run(self,experiment_name,runid):</em></strong></p>
+<pre><code class="language-python"> _summary_: start a context manager for with statement
+1. When run is started it will create
+    a. RUN ID
+    b. EXPERIMENT ID
+    c. FOLDERS for storing the details
+
+Args:
+    experiment_name (str, optional): gives a experiment name. Defaults to None.
+    runid (str, optional): gives a runid. Defaults to None.
+
+Returns:
+    class context_run(object): object for the context manager 
+</code></pre>
+<p><strong><em> Module-&gt; set_experiment(self,name):</em></strong></p>
+<pre><code class="language-python"> _summary_: sets the experiment name
+
+Args:
+    name (str): name of the experiment 
+</code></pre>
+<p><strong><em> Module-&gt; set_tag(self,tag_value):</em></strong></p>
+<pre><code class="language-python"> _summary_: sets a tag for a perticular run
+Args:
+    name (str or int or float): tag name 
+Raises:
+    TypeError: Supported type 'str','int','float' 
+</code></pre>
+<p><strong><em> Module-&gt; set_tags(self,tag_dict):</em></strong></p>
+<pre><code class="language-python"> _summary_:sets N no of tags for a perticular run
+
+Args:
+    tag_dict (list): tag names in list format
+
+Raises:
+    TypeError: Expected 'list' 
+</code></pre>
+<p><strong><em> Module-&gt; get_tags(self):</em></strong></p>
+<pre><code class="language-python"> _summary_: get all the tags that are associated with the run
+
+Returns:
+    list: tags that are associated with the run 
+</code></pre>
+<p><strong><em> Module-&gt; set_version(self,version):</em></strong></p>
+<pre><code class="language-python"> _summary_:sets version number for the perticular run
+
+Args:
+    version (str or int or float): version number
+
+Raises:
+    TypeError: Expected 'str','int','float' 
+</code></pre>
+<p><strong><em> Module-&gt; get_version(self):</em></strong></p>
+<pre><code class="language-python"> _summary_:get the version number associated with the run
+
+
+Returns:
+    _type_: version number 
+</code></pre>
+<p><strong><em> Module-&gt; log_metrics(self,metric_dict):</em></strong></p>
+<pre><code class="language-python"> _summary_: log metrics for the model run
+
+Args:
+    metric_dict (dict): key value pair with metric name and metric value
+
+Raises:
+    TypeError: Expected 'dict' 
+</code></pre>
+<p><strong><em> Module-&gt; log_matric(self,metric_name,metric_value):</em></strong></p>
+<pre><code class="language-python"> _summary_: log single metric for the model run
+
+Args:
+    metric_name (str): name of the metric
+    metric_value (int or float): value of the metric
+
+Raises:
+    TypeError: metric_name expected to be str
+    TypeError: metric_value expected to be int or float 
+</code></pre>
+<p><strong><em> Module-&gt; log_params(self,param_dict):</em></strong></p>
+<pre><code class="language-python"> _summary_: log parameters for the model run
+
+Args:
+    param_dict (dict): key value pair with parameter name and parameter value
+
+Raises:
+    TypeError: Expected 'dict' 
+</code></pre>
+<p><strong><em> Module-&gt; log_param(self,param_name,param_value):</em></strong></p>
+<pre><code class="language-python"> _summary_:log single parameter for the model run
+
+Args:
+    param_name (str): _description_
+    param_value (int or float or str): _description_
+
+Raises:
+    TypeError: param_name Expected 'str' 
+    TypeError: param_value Expected 'int','float','str'  
+</code></pre>
+<p><strong><em> Module-&gt; register_artifact(self,artifact_name,artifact,artifact_type):</em></strong></p>
+<pre><code class="language-python"> _summary_: Save Artifact as part of data verion control
+
+Args:
+    artifact_name (str): name of the artifact
+    artifact (pandas DataFrame): pandas DataFrame object with the data
+    artifact_type (str, optional): Defaults to &quot;training&quot;. artifact_type can be [training,testing,validation,dev,prod]
+
+Raises:
+    TypeError: Expected DataFrame object
+    ValueError: artifact_name should have a string value 
+</code></pre>
+<p><strong><em> Module-&gt; register_artifact_with_path(self,artifact,artifact_type):</em></strong></p>
+<pre><code class="language-python"> _summary_
+
+Args:
+    artifact (str): path of the artifact
+    artifact_type (str, optional): _description_. Defaults to &quot;training&quot;.artifact_type can be [training,testing,validation,dev,prod]
+
+Raises:
+    TypeError: artifact path should be str
+    ValueError: artifact path should be correct 
+</code></pre>
+<p><strong><em> Module-&gt; get_info(self):</em></strong></p>
+<pre><code class="language-python"> _summary_: get the whole run details
+
+Returns:
+    dict: information about the whole run 
+</code></pre>
+<p><strong><em> Module-&gt; get_artifact(self):</em></strong></p>
+<pre><code class="language-python"> _summary_: get the artifact details
+
+Returns:
+    dict: returns the artifact detail 
+</code></pre>
+<p><strong><em> Module-&gt; _write_info_experiment(self,experiment_name,path):</em></strong></p>
+<pre><code class="language-python"> _summary_: writes to the experiment schema
+
+Args:
+    experiment_name (str): name of the experiment
+    path (str): path to save the run details 
+</code></pre>
+<p><strong><em> Module-&gt; _write_info_run(self,experiment_name,run_id):</em></strong></p>
+<pre><code class="language-python"> _summary_:writes to the run schema
+
+Args:
+    experiment_name (str): name of the experiment
+    run_id (str): ID for the running instance 
+</code></pre>
+<p><strong><em> Module-&gt; set_uri(self):</em></strong></p>
+<h4 id="class-scikitlearn">Class-&gt; ScikitLearn:</h4>
+<p><strong><em> Module-&gt; <strong>init</strong>(self,folders):</em></strong></p>
+<p><strong><em> Module-&gt; register_model(self,model_name,model):</em></strong></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../code/" class="btn btn-neutral float-right" title="API">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../code/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

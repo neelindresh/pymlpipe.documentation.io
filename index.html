@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>PyMLPipe Documentation</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> PyMLPipe Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tutorial">Tutorial</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#launch-ui">Launch UI</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sample-ui">Sample UI</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#one-click-deployment-click-the-deploy-button-to-deploy-the-model-and-get-a-endpoint">One Click Deployment -click the deploy button to deploy the model and get a endpoint</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#send-the-data-to-the-prediction-end-point-in-the-format">Send the data to the Prediction end point in the format</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#license">License</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="package-index/">Usage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="code/">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="featurelist/">Feature</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">PyMLPipe Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="pymlpipe">PyMLpipe</h1>
+<p>PyMLpipe is a Python library for ease Machine Learning Model monitering and Deployment.</p>
+<ul>
+<li>Simple</li>
+<li>Intuative</li>
+<li>Easy to use</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Use the package manager <a href="https://pypi.org/project/pymlpipe/">pip</a> to install PyMLpipe.</p>
+<pre><code class="language-bash">pip install pymlpipe
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">pip3 install pymlpipe
+</code></pre>
+<h2 id="tutorial">Tutorial</h2>
+<ul>
+<li>Load the python package</li>
+</ul>
+<pre><code class="language-python">from pymlpipe.tabular import PyMLPipe
+</code></pre>
+<ul>
+<li>Initiate the <code>PyMLPipe</code> class</li>
+</ul>
+<pre><code class="language-python">mlp=PyMLPipe()
+</code></pre>
+<ul>
+<li>Set an Experiment Name <code>[Optional]</code>-Default experiment name is <code>'0'</code></li>
+</ul>
+<pre><code class="language-python">mlp.set_experiment(&quot;IrisDataV2&quot;)
+</code></pre>
+<ul>
+<li>Set a version <code>[Optional]</code>-Default there is no version</li>
+</ul>
+<pre><code class="language-python">mlp.set_version(0.1)
+</code></pre>
+<ul>
+<li>Initiate the context manager - This is create a unique ID for each model run. <ul>
+<li>when <code>.run()</code> is used - Automatic  unique ID is generated </li>
+<li>you can also provide <code>runid</code> argument in the <code>.run()</code> this will the use the given <code>runid</code> for next storing.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">with mlp.run():
+</code></pre>
+<p>Or</p>
+<pre><code class="language-python">with mlp.run(runid='mlopstest'):
+</code></pre>
+<ul>
+<li>Set a Tag <code>[Optional]</code> by using <code>set_tag()</code>-Default there is no tags</li>
+</ul>
+<pre><code class="language-python"> mlp.set_tag('tag')
+</code></pre>
+<p>Or </p>
+<ul>
+<li>Set multiple Tags <code>[Optional]</code> by using <code>set_tags()</code>-Default there is no tags</li>
+</ul>
+<pre><code class="language-python">mlp.set_tags([&quot;Classification&quot;,&quot;test run&quot;,&quot;logisticRegression&quot;])
+
+</code></pre>
+<ul>
+<li>Set Metrics values <code>[Optional]</code> by using <code>log_matric(metric_name,metric_value)</code>-Default there is no metrics
+This will help in comparing performance of different models and model versions</li>
+</ul>
+<pre><code class="language-python">mlp.log_matric(&quot;Accuracy&quot;, accuracy_score(testy,predictions))
+
+
+mlp.log_matric(&quot;Accuracy&quot;, .92)
+
+</code></pre>
+<ul>
+<li>Set multiple Metrics values <code>[Optional]</code> by using <code>log_matrics({metric_name:metric_value})</code>-Default there is no metrics</li>
+</ul>
+<pre><code class="language-python">mlp.log_matrics(
+    {
+        &quot;Accuracy&quot;: accuracy_score(testy,predictions),
+        &quot;Precision&quot;: precision_score(testy,predictions,average='macro'),
+        &quot;Recall&quot;, recall_score(testy,predictions,average='macro'),
+    }
+)
+
+
+mlp.log_matrics(
+    {
+        &quot;Accuracy&quot;: .92,
+        &quot;Precision&quot;: .87,
+        &quot;Recall&quot;, .98,
+    }
+)
+
+
+</code></pre>
+<ul>
+<li>Save an artifact <code>[Optional]</code> - You can save training/testing/validation/dev/prod data for monitoring and comparison<ul>
+<li>This will also help in generating <code>DATA SCHEMA</code></li>
+<li><code>register_artifact()</code> -takes 3 arguments <ul>
+<li>name of artifact</li>
+<li>Pandas Dataframe</li>
+<li>type of artifact - <code>[training, testing, validation, dev, prod]</code></li>
+</ul>
+</li>
+<li>You can also use <code>register_artifact_with_path()</code> - This will save the artifact from the disk. <ul>
+<li>Path for the file</li>
+<li>type of artifact - <code>[training, testing, validation, dev, prod]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">    mlp.register_artifact(&quot;train.csv&quot;, trainx)
+
+    mlp.register_artifact(&quot;train.csv&quot;, trainx)
+</code></pre>
+<ul>
+<li>Register Model <code>[Optional]</code> - You can register the model. This will help in Quick deployment</li>
+</ul>
+<pre><code class="language-python">   mlp.scikit_learn.register_model(&quot;logistic regression&quot;, model)
+</code></pre>
+<h2 id="quick-start">Quick Start</h2>
+<pre><code class="language-python">from sklearn.datasets import  load_iris
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
+#import PyMLPipe from tabular 
+from pymlpipe.tabular import PyMLPipe
+
+
+# Initiate the class
+mlp=PyMLPipe()
+# Set experiment name
+mlp.set_experiment(&quot;IrisDataV2&quot;)
+# Set Version name
+mlp.set_version(0.2)
+
+iris_data=load_iris()
+data=iris_data[&quot;data&quot;]
+target=iris_data[&quot;target&quot;]
+df=pd.DataFrame(data,columns=iris_data[&quot;feature_names&quot;])
+trainx,testx,trainy,testy=train_test_split(df,target)
+
+
+# to start monitering use mlp.run()
+with mlp.run():
+    # set tags
+    mlp.set_tags([&quot;Classification&quot;,&quot;test run&quot;,&quot;logisticRegression&quot;])
+    model=LogisticRegression()
+    model.fit(trainx, trainy)
+    predictions=model.predict(testx)
+    # log performace metrics
+    mlp.log_matric(&quot;Accuracy&quot;, accuracy_score(testy,predictions))
+    mlp.log_matric(&quot;Precision&quot;, precision_score(testy,predictions,average='macro'))
+    mlp.log_matric(&quot;Recall&quot;, recall_score(testy,predictions,average='macro'))
+    mlp.log_matric(&quot;F1&quot;, f1_score(testy,predictions,average='macro'))
+
+    # Save train data and test data
+    mlp.register_artifact(&quot;train&quot;, trainx)
+    mlp.register_artifact(&quot;test&quot;, testx,artifact_type=&quot;testing&quot;)
+    # Save the model
+    mlp.scikit_learn.register_model(&quot;logistic regression&quot;, model)
+
+</code></pre>
+<h2 id="launch-ui">Launch UI</h2>
+<p>To start the UI </p>
+<pre><code class="language-bash">pymlpipeui 
+</code></pre>
+<p>or </p>
+<pre><code class="language-python">from pymlpipe.pymlpipeUI import start_ui
+
+
+start_ui(host='0.0.0.0', port=8085)
+</code></pre>
+<h4 id="sample-ui">Sample UI</h4>
+<p><img alt="alt text" src="https://github.com/neelindresh/pymlpipe/blob/development/static/Screenshot%202022-07-04%20at%201.42.35%20PM.png?raw=true" /></p>
+<hr />
+<p><img alt="alt text" src="https://github.com/neelindresh/pymlpipe/blob/development/static/Screenshot%202022-07-04%20at%201.42.52%20PM.png?raw=true" /></p>
+<hr />
+<h4 id="one-click-deployment-click-the-deploy-button-to-deploy-the-model-and-get-a-endpoint">One Click Deployment -click the deploy button to deploy the model and get a endpoint</h4>
+<p><img alt="alt text" src="https://github.com/neelindresh/pymlpipe/blob/development/static/Screenshot%202022-07-04%20at%201.43.03%20PM.png?raw=true" /></p>
+<hr />
+<p><img alt="alt text" src="https://github.com/neelindresh/pymlpipe/blob/development/static/Screenshot%202022-07-04%20at%201.43.52%20PM.png?raw=true" /></p>
+<hr />
+<h2 id="send-the-data-to-the-prediction-end-point-in-the-format">Send the data to the Prediction end point in the format</h2>
+<ul>
+<li>Each list is a row of data</li>
+</ul>
+<pre><code class="language-python">{
+        &quot;data&quot;:[
+            [
+                5.6,
+                3.0,
+                4.5,
+                1.5
+            ],
+            [
+                5.6,
+                3.0,
+                4.5,
+                1.5
+            ]
+        ]
+    }
+</code></pre>
+<p><img alt="alt text" src="https://github.com/neelindresh/pymlpipe/blob/development/static/Screenshot%202022-07-04%20at%201.44.05%20PM.png?raw=true" /></p>
+<hr />
+<h2 id="contributing">Contributing</h2>
+<p>Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.</p>
+<p>Please make sure to update tests as appropriate.</p>
+<h2 id="license">License</h2>
+<p><a href="https://choosealicense.com/licenses/mit/">MIT</a></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="package-index/" class="btn btn-neutral float-right" title="Usage">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="package-index/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.3.0
+Build Date UTC : 2022-07-04 10:44:38.701479+00:00
+-->

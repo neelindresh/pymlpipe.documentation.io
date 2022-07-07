@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Usage - PyMLPipe Documentation</title>
+    <title>Usage - My Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> PyMLPipe Documentation
+          <a href=".." class="icon icon-home"> My Docs
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -57,6 +57,24 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeinit">pymlpipe/init</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipepymlpipeui">pymlpipe/pymlpipeUI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsyamlio">pymlpipe/utils/yamlio</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsdatabase">pymlpipe/utils/database</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsinit">pymlpipe/utils/init</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutilsgetschema">pymlpipe/utils/getschema</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pymlpipeutils_sklearn_prediction">pymlpipe/utils/_sklearn_prediction</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#class-deployment">Class-&gt; Deployment:</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -75,7 +93,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">PyMLPipe Documentation</a>
+          <a href="..">My Docs</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -184,7 +202,7 @@ Args:
 Raises:
     TypeError: Expected 'dict' 
 </code></pre>
-<p><strong><em> Module-&gt; log_matric(self,metric_name,metric_value):</em></strong></p>
+<p><strong><em> Module-&gt; log_metric(self,metric_name,metric_value):</em></strong></p>
 <pre><code class="language-python"> _summary_: log single metric for the model run
 
 Args:
@@ -268,6 +286,59 @@ Args:
 <h4 id="class-scikitlearn">Class-&gt; ScikitLearn:</h4>
 <p><strong><em> Module-&gt; <strong>init</strong>(self,folders):</em></strong></p>
 <p><strong><em> Module-&gt; register_model(self,model_name,model):</em></strong></p>
+<hr />
+<h3 id="pymlpipeinit">pymlpipe/<strong>init</strong></h3>
+<hr />
+<h3 id="pymlpipepymlpipeui">pymlpipe/pymlpipeUI</h3>
+<p><strong><em> Module-&gt; index()</em></strong></p>
+<pre><code class="language-python"> if &quot;status&quot; in flask.request.args:
+
+    if flask.request.args[&quot;status&quot;]==&quot;501&quot;:
+        deploy_status=False
+
+</code></pre>
+<p><strong><em> Module-&gt; runpage(run_id)</em></strong></p>
+<p><strong><em> Module-&gt; download_artifact(uid)</em></strong></p>
+<p><strong><em> Module-&gt; download_model(uid)</em></strong></p>
+<p><strong><em> Module-&gt; deployments(run_id)</em></strong></p>
+<p><strong><em> Module-&gt; show_deployments()</em></strong></p>
+<p><strong><em> Module-&gt; predict(hashno)</em></strong></p>
+<p><strong><em> Module-&gt; stop_deployment(deployment_no)</em></strong></p>
+<p><strong><em> Module-&gt; start_deployment(deployment_no)</em></strong></p>
+<p><strong><em> Module-&gt; start_ui(host,port,debug)</em></strong></p>
+<pre><code class="language-python"> Implemet logic for try catch 
+</code></pre>
+<hr />
+<h3 id="pymlpipeutilsyamlio">pymlpipe/utils/yamlio</h3>
+<p><strong><em> Module-&gt; read_yaml(path)</em></strong></p>
+<p><strong><em> Module-&gt; write_to_yaml(path,info)</em></strong></p>
+<hr />
+<h3 id="pymlpipeutilsdatabase">pymlpipe/utils/database</h3>
+<p><strong><em> Module-&gt; create_folder(folder_path,name)</em></strong></p>
+<pre><code class="language-python"> _summary_:create a folder for storing model information
+
+Returns:
+    str: path for storing model details 
+</code></pre>
+<hr />
+<h3 id="pymlpipeutilsinit">pymlpipe/utils/<strong>init</strong></h3>
+<hr />
+<h3 id="pymlpipeutilsgetschema">pymlpipe/utils/getschema</h3>
+<p><strong><em> Module-&gt; schema_(data)</em></strong></p>
+<pre><code class="language-python"> _summary_: Generate schema object for a dataframe
+
+Args:
+    data (Pandas DataFrame): Pandas Artifact
+
+Returns:
+    dict: with column schema 
+</code></pre>
+<hr />
+<h3 id="pymlpipeutils_sklearn_prediction">pymlpipe/utils/_sklearn_prediction</h3>
+<h4 id="class-deployment">Class-&gt; Deployment:</h4>
+<p><strong><em> Module-&gt; <strong>init</strong>(self,model_path):</em></strong></p>
+<p><strong><em> Module-&gt; predict(self,data):</em></strong></p>
+<hr />
               
             </div>
           </div><footer>

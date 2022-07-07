@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>PyMLPipe Documentation</title>
+    <title>My Docs</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> PyMLPipe Documentation
+          <a href="." class="icon icon-home"> My Docs
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -85,7 +85,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">PyMLPipe Documentation</a>
+          <a href=".">My Docs</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -101,13 +101,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="pymlpipe">PyMLpipe</h1>
+                <p><img alt="alt text" src="https://github.com/neelindresh/pymlpipe/blob/main/static/logo.svg?raw=true" /></p>
+<h1 id="pymlpipe">PyMLpipe</h1>
 <p>PyMLpipe is a Python library for ease Machine Learning Model monitoring and Deployment.</p>
 <ul>
 <li>Simple</li>
 <li>Intuative</li>
 <li>Easy to use</li>
 </ul>
+<p>Please Find the Full <a href="https://neelindresh.github.io/pymlpipe.documentation.io/">documentation</a> here!</p>
 <h2 id="installation">Installation</h2>
 <p>Use the package manager <a href="https://pypi.org/project/pymlpipe/">pip</a> to install PyMLpipe.</p>
 <pre><code class="language-bash">pip install pymlpipe
@@ -164,16 +166,16 @@
 <li>Set Metrics values <code>[Optional]</code> by using <code>log_matric(metric_name,metric_value)</code>-Default there is no metrics
 This will help in comparing performance of different models and model versions</li>
 </ul>
-<pre><code class="language-python">mlp.log_matric(&quot;Accuracy&quot;, accuracy_score(testy,predictions))
+<pre><code class="language-python">mlp.log_metric(&quot;Accuracy&quot;, accuracy_score(testy,predictions))
 
 
-mlp.log_matric(&quot;Accuracy&quot;, .92)
+mlp.log_metric(&quot;Accuracy&quot;, .92)
 
 </code></pre>
 <ul>
 <li>Set multiple Metrics values <code>[Optional]</code> by using <code>log_matrics({metric_name:metric_value})</code>-Default there is no metrics</li>
 </ul>
-<pre><code class="language-python">mlp.log_matrics(
+<pre><code class="language-python">mlp.log_metrics(
     {
         &quot;Accuracy&quot;: accuracy_score(testy,predictions),
         &quot;Precision&quot;: precision_score(testy,predictions,average='macro'),
@@ -182,7 +184,7 @@ mlp.log_matric(&quot;Accuracy&quot;, .92)
 )
 
 
-mlp.log_matrics(
+mlp.log_metrics(
     {
         &quot;Accuracy&quot;: .92,
         &quot;Precision&quot;: .87,
@@ -250,10 +252,10 @@ with mlp.run():
     model.fit(trainx, trainy)
     predictions=model.predict(testx)
     # log performace metrics
-    mlp.log_matric(&quot;Accuracy&quot;, accuracy_score(testy,predictions))
-    mlp.log_matric(&quot;Precision&quot;, precision_score(testy,predictions,average='macro'))
-    mlp.log_matric(&quot;Recall&quot;, recall_score(testy,predictions,average='macro'))
-    mlp.log_matric(&quot;F1&quot;, f1_score(testy,predictions,average='macro'))
+    mlp.log_metric(&quot;Accuracy&quot;, accuracy_score(testy,predictions))
+    mlp.log_metric(&quot;Precision&quot;, precision_score(testy,predictions,average='macro'))
+    mlp.log_metric(&quot;Recall&quot;, recall_score(testy,predictions,average='macro'))
+    mlp.log_metric(&quot;F1&quot;, f1_score(testy,predictions,average='macro'))
 
     # Save train data and test data
     mlp.register_artifact(&quot;train&quot;, trainx)
@@ -357,5 +359,5 @@ start_ui(host='0.0.0.0', port=8085)
 
 <!--
 MkDocs version : 1.3.0
-Build Date UTC : 2022-07-04 10:44:38.701479+00:00
+Build Date UTC : 2022-07-07 12:28:35.329882+00:00
 -->
